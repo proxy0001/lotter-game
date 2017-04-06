@@ -1,0 +1,31 @@
+@import "./mixin.scss";
+
+html, body {
+  background-color: color($colors, light);
+}
+#app {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: color($colors, dark);
+}
+
+.header {
+  padding: 16px;
+  background-color: color($colors, primary);
+}
+
+section {
+  padding: 16px;
+  
+}
+
+#draw {
+  color: color($colors, light);
+  background-color: color($colors, dark);  
+}
+
+#chart {
+  background-color: color($colors, light);
+}
