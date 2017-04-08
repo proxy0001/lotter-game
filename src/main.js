@@ -1,19 +1,12 @@
+import './assets/stylesheets/_bootstrap.scss'
 import Vue from 'vue'
+import App from './app.vue'
 
-// ES build is more efficient by reducing unneeded components with tree-shaking.
-// (Needs Webpack 2 or Rollup)
-import BootstrapVue from 'bootstrap-vue/dist/bootstrap-vue.esm';
+import Pool from './components/pool'
+import Ball from './components/ball'
 
-// Import styles if style-loader is available
-// You have to manually add css files if lines below are not working
-import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap-vue/dist/bootstrap-vue.css'
-
-// Globally register components
-Vue.use(BootstrapVue);
-
-
-import App from './App.vue'
+Vue.component('pool', Pool )
+Vue.component('ball', Ball )
 
 new Vue({
   el: '#app',

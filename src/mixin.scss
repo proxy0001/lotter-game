@@ -10,3 +10,38 @@ $colors: (
   light: #F7FFF7,
 );
 
+// change default bootstrap color
+
+.btn-primary {
+  background: color($colors, primary);
+  color: color($colors, light);
+  border-color: color($colors, primary);
+}
+ 
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary {
+    background: color($colors, primary);
+    border-color: color($colors, primary);
+}
+ 
+.btn-primary:active, .btn-primary.active {
+    background: color($colors, primary);
+    border-color: color($colors, primary);
+}
+
+.btn-outline-primary {
+  color: color($colors, light);
+  border-color: color($colors, primary);
+}
+ 
+.btn-outline-primary:hover, .btn-outline-primary:focus, .btn-outline-primary:active, .btn-outline-primary.active, .open > .dropdown-toggle.btn-outline-primary {
+  color: color($colors, light);
+  background: color($colors, primary);
+  border-color: color($colors, primary);
+}
+ 
+.btn-outline-primary:active, .btn-outline-primary.active {
+  color: color($colors, light);
+  background: color($colors, primary);
+  border-color: color($colors, primary);
+  box-shadow: none;
+}

@@ -5,13 +5,17 @@
       <p> {{description}} </p>
     </header>
     
-    <section id="draw" class="container-fluid">
+    <section id="draw" class="">
       <div class="row">
-        <div class="col-md-8">
-          <p>Number Panel</p>
+        <div class="col-md-6 left-area">
+          <number-panel></number-panel>
+          <!--<span>Number Panel</span>-->
+          
         </div>
-        <div class="col-md-4">
-          <p>History Panel</p>
+        <div class="col-md-6 right-area">
+          <history-panel></history-panel>
+          <!--<span>History Panel</span>-->
+          
         </div>
       </div>  
     </section>
@@ -30,17 +34,24 @@
 </template>
 
 <script>
+import NumberPanel from './components/number-panel'
+import HistoryPanel from './components/history-panel'
+
 export default {
   name: 'app',
+  components: {
+    'number-panel': NumberPanel,
+    'history-panel': HistoryPanel,
+  },
   data () {
     return {
       title: 'Lotter game',
-      description: 'vue2 + bootstrap4',
+      description: 'vue + bootstrap',
     }
   }
 }
 </script>
 
 <style lang="scss">
-  @import "./App.scss";
+  @import "./app.scss";
 </style>

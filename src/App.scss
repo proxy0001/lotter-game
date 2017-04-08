@@ -13,19 +13,30 @@ html, body {
 
 .header {
   padding: 16px;
+  color: color($colors, light);
   background-color: color($colors, primary);
 }
 
-section {
-  padding: 16px;
-  
-}
-
 #draw {
-  color: color($colors, light);
-  background-color: color($colors, dark);  
+  padding: 0;
+
+  & .row > div {
+    padding: 16px;
+  }
+
+  .left-area {
+    // color: color($colors, light);
+    // background-color: color($colors, secondary);
+  }
+
+  .right-area {
+    // color: color($colors, light);
+    // background-color: color($colors, dark);
+  }  
 }
 
 #chart {
-  background-color: color($colors, light);
+  padding: 16px;
+  color: color($colors, light);
+  background-color: color($colors, secondary);
 }

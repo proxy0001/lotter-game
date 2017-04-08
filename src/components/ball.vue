@@ -1,0 +1,75 @@
+<template>
+  <div v-if="isShow" class="ball" :style="{ 'order': order }">
+    <div class="inner">{{value}}</div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'ball',
+  props: {
+    value: {
+      type: Number,
+    },
+    order: {
+      type: Number,
+      default: 0
+    }
+  },
+  created () {
+    console.log( this.$options.name + ': created' );
+  },
+  mounted () {
+    console.log( this.$options.name + ': mounted');
+  },  
+  destoryed () {
+    console.log( this.$options.name + ': destoryed');
+  },
+  methods: {
+    show () {
+      this.isShow = true
+    },
+    hide () {
+      this.isShow = false
+    }    
+  },
+  data () {
+    return {
+      isShow: false,
+    }
+  }
+}
+</script>
+
+<style lang="scss">
+  @import "../mixin.scss";
+
+
+  .ball {
+    position: relative;
+    width: 21%;
+    margin: 2%;
+    border-radius: 50%;
+    background-color: color( $colors, secondary );
+    overflow: hidden;
+
+    &:after {
+      content: '';
+      display: block;
+      margin-top: 100%;
+    }
+
+    .inner {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: color($colors, light);    
+    }    
+  }
+
+</style>
