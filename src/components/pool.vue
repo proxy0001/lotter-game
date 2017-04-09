@@ -54,13 +54,17 @@ export default {
       return this
     },
     createBalls ( n = 0 ) {
-      this.balls = Array( n ).fill( undefined ).map( ( value, index ) => {
-        return {
-          value: index + 1,
-          color: 0,
-          isShow: false,
-        }
-      }).sort( () => .5 - Math.random() )
+      if ( isNaN( n ) ) {
+        this.balls = n
+      }else {
+        this.balls = Array( n ).fill( undefined ).map( ( value, index ) => {
+          return {
+            value: index + 1,
+            color: 0,
+            isShow: false,
+          }
+        }).sort( () => .5 - Math.random() )
+      }
       return this
     },
     showBalls ( n = 0 ) {

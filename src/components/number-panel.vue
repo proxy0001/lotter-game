@@ -8,9 +8,8 @@
 </template>
 
 <script>
+import { Bus } from './event-bus'
 
-
-// let balls = [ ...Array( num ).keys() ].map( x => ++x )
 export default {
   data () {
     return {
@@ -40,17 +39,13 @@ export default {
       console.log('on click')
       this.pool.resetColorOfBalls()
       this.drawAry = this.draw( this.ballAry, 4)
-      console.log(this.drawAry)
       this.pool.changeColorOfBalls( this.drawAry )
+      Bus.$emit( 'addDrawnData', this.drawAry.map( x => Object.assign( {}, x ) ) )
     },
     draw ( balls, n ) {
-      // balls = balls.slice()
-      // return Array( n ).fill( undefined ).map( () => {
-      //   return balls.splice( Math.floor( Math.random() * balls.length ), 1 )[0]
-      // })
-      // [ ...Array( this.$props.num ).keys() ].map( x => ++x ).sort( () => .5 - Math.random() )
       let drawBox = [ ...Array( balls.length ).keys() ].sort( () => .5 - Math.random() )
       return Array( n ).fill( undefined ).map( ( item, index ) => {
+        // return Object.assign( {}, balls[ drawBox[ index ] ] )
         return balls[ drawBox[ index ] ]
       })
     }

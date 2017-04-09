@@ -1,17 +1,24 @@
 <template>
   <div class="history-panel">
-    <div class="pool" v-for="buttle in buttles">
+    <pool v-for=" n in displayNum" :num="cols"></pool>
+    <!--<div class="pool" v-for="buttle in buttles">
       <div class="ball" v-for="ball in buttle">
         <div class="inner">{{ball}}</div>
       </div>
-    </div>
+    </div>-->
   </div>
 </template>
 
 <script>
+import { Bus } from './event-bus'
+
 export default {
   data () {
     return {
+      displayNum: 5,
+      pools: [],
+      drawHistory: [],
+      cols: 4,
       buttles: [
         [1, 2, 3, 4],
         [1, 2, 3, 4],
@@ -20,6 +27,45 @@ export default {
         [1, 2, 3, 4],
       ],
       balls: [1, 2, 3, 4],
+    }
+  },  
+  created () {
+
+  },
+  mounted () {
+    this.pools = this.$children
+    Bus.$on( 'addDrawnData', ( data ) => {
+      console.log( data )
+      this.addHistoryData( data )
+      this.loopPools( ( pool, data, index ) => {
+        pool.createBalls( data )
+        if ( index !== 0 ) {
+          pool.resetColorOfBalls()
+        }
+      })
+    })
+  },
+  destroyed () {
+
+  },
+  methods: {
+    addHistoryData ( data ) {
+      this.drawHistory.push( data )
+    },
+    getHistoryData ( n, direction = 1 ) {
+      if ( direction > 0 ) {
+        return this.drawHistory[ n ]
+      } else {
+        return this.drawHistory[ this.drawHistory.length - n - 1 ]
+      }
+    },
+    loopPools ( callback, n = 0 ) {
+      let data = this.getHistoryData( n, -1 )
+      if ( n < this.pools.length && data ) {
+        callback( this.pools[ n ], data, n )
+        this.loopPools( callback, ++n )
+      }
+      return this
     }
   }
 }
@@ -32,48 +78,5 @@ export default {
     width: 70%;
     padding: 24px;
     margin: 0 auto;
-
-    .buttle {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-around;
-      align-items: center;
-      width: 80%;
-      margin: 0 auto;
-      margin-bottom: 12px;
-      border: 1px solid color( $colors, secondary );
-
-    }
-
-  .ball {
-    position: relative;
-    width: 21%;
-    margin: 2%;
-    border-radius: 50%;
-    background-color: color( $colors, secondary );
-    overflow: hidden;
-
-    &:after {
-      content: '';
-      display: block;
-      margin-top: 100%;
-    }
-
-    .inner {
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: color($colors, light);    
-    }    
-  }
-
-
-
-
   }
 </style>
