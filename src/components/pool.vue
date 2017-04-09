@@ -1,7 +1,7 @@
 <template>
   <transition appear name="fade">
     <div class="pool">
-      <ball v-for="(value, index) in values" :value="value" :order="index"></ball>
+      <ball v-for="(ball, index) in balls" :value="ball.value" :isShow="ball.isShow" :order="index"></ball>
     </div>
   </transition>  
 </template>
@@ -24,58 +24,68 @@ export default {
       default: 4,
     },
   },
+  data () {
+    return {
+      balls: []
+    }
+  },  
   created () {
     console.log( this.$options.name + ': created' )
 
   },
   mounted () {
     console.log( this.$options.name + ': mounted')
-    this.height
-    this.showBalls()
-    // this.init()
+    this.setHeight()
+    // this.showBalls()
+    window.addEventListener('resize', this.setHeight)
   },  
   destoryed () {
     console.log( this.$options.name + ': destoryed')
+    window.removeEventListener('resize')
   },
+
   computed: {
-    height () {
-      let height = Math.ceil( this.$props.num / this.$props.cols ) * this.$el.offsetWidth / this.$props.cols
-      this.$el.style.height = height + 'px'
-      return height
-    },
-    values () {
-      // to create balls
-      return [ ...Array( this.$props.num ).keys() ].map( x => ++x ).sort( () => .5 - Math.random() )
-      // return [ ...Array( this.$props.num ).keys() ].map( x => ++x )
-    }
+
   },
   methods: {
-    initialized () {
-      this.isInit = true
-      this.$emit('initialized')
+    setHeight () {
+      let height = Math.ceil( this.$props.num / this.$props.cols ) * this.$el.offsetWidth / this.$props.cols
+      this.$el.style.height = height + 'px'
+      return this
+    },
+    createBalls ( n = 0 ) {
+      this.balls = Array( n ).fill( undefined ).map( ( value, index ) => {
+        return {
+          value: index + 1,
+          color: 0,
+          isShow: false,
+        }
+      }).sort( () => .5 - Math.random() )
+      return this
     },
     showBalls ( n = 0 ) {
-      // let time = 50
-      // this.$children.forEach( ( x, y ) => setTimeout( () => x.show(), time * y ) )    
-      if ( n < this.$props.num ) {
-        this.showBall( n )
-        setTimeout( () => this.showBalls( ++n ) , 50)
-      }else {
-        this.initialized()
-      }
+      let time = 50
+      let promiseAry = this.balls.map( ( value, index ) => {
+        return this.showBall( index, ( index + 1 ) * time )
+      })
+      return Promise.all( promiseAry )
     },
-    showBall ( n ) {
-      this.$children[n].show()
+    showBall ( n, duration ) {
+      return new Promise ( resolve => {
+        setTimeout( () => {
+          this.balls[ n ].isShow = true
+          resolve()
+        }, duration)
+      })
     },
-    hideBall ( n ) {
-      this.$children[n].hide()
+    changeColorOfBalls ( balls ) {
+      balls.forEach( x => {
+        x.color = 1
+      })
+      console.log( balls )
     }
   },
-  data () {
-    return {
-      isInit: false,
-    }
-  },
+
 }
 </script>
 
@@ -96,10 +106,10 @@ export default {
 
   }
 
-  .fade-enter-active, .fade-leave-active {
-    transition: opacity .5s
-  }
-  .fade-enter, .fade-leave-to /* .fade-leave-active in <2.1.8 */ {
-    opacity: 0
-  }
+  // .fade-enter-active, .fade-leave-active {
+  //   transition: opacity .5s
+  // }
+  // .fade-enter, .fade-leave-to /* .fade-leave-active in <2.1.8 */ {
+  //   opacity: 0
+  // }
 </style>

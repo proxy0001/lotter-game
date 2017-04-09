@@ -1,5 +1,5 @@
 <template>
-  <div v-if="isShow" class="ball" :style="{ 'order': order }">
+  <div :class="{ drawn: color===1, lastDrawn: color===2}" v-if="isShow" class="ball" :style="{ 'order': order }">
     <div class="inner">{{value}}</div>
   </div>
 </template>
@@ -11,10 +11,18 @@ export default {
     value: {
       type: Number,
     },
+    isShow: {
+      type: Boolean,
+      default: true,
+    },
+    color: {
+      type: Number,
+      default: 0,
+    },
     order: {
       type: Number,
       default: 0
-    }
+    },
   },
   created () {
     console.log( this.$options.name + ': created' );
@@ -31,11 +39,17 @@ export default {
     },
     hide () {
       this.isShow = false
-    }    
+    },
+    changeColor ( n ) {
+      if ( n >= 0 && n <= 2 ) {
+        this.color = n
+      }
+    }
   },
   data () {
     return {
-      isShow: false,
+      // isShow: true,
+      // color: 0
     }
   }
 }
@@ -52,12 +66,7 @@ export default {
     border-radius: 50%;
     background-color: color( $colors, secondary );
     overflow: hidden;
-
-    &:after {
-      content: '';
-      display: block;
-      margin-top: 100%;
-    }
+    color: color($colors, light);
 
     .inner {
       position: absolute;
@@ -68,8 +77,23 @@ export default {
       display: flex;
       justify-content: center;
       align-items: center;
-      color: color($colors, light);    
-    }    
+    }
+
+    &:after {
+      content: '';
+      display: block;
+      margin-top: 100%;
+    }
+
+    &.drawn {
+      color: color($colors, dark);
+      background-color: yellow;
+    }
+    &.lastDrawn {
+      color: color($colors, dark);
+      background-color: red;
+    }
+
   }
 
 </style>
