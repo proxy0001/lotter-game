@@ -1,7 +1,7 @@
 <template>
   <transition appear name="fade">
     <div class="pool">
-      <ball v-for="(ball, index) in balls" :value="ball.value" :isShow="ball.isShow" :order="index"></ball>
+      <ball v-for="(ball, index) in balls" :value="ball.value" :isShow="ball.isShow" :color="ball.color" :order="index"></ball>
     </div>
   </transition>  
 </template>
@@ -78,11 +78,19 @@ export default {
         }, duration)
       })
     },
-    changeColorOfBalls ( balls ) {
-      balls.forEach( x => {
-        x.color = 1
+    changeColorOfBalls ( targets ) {
+      targets.forEach( ( item, index ) => { 
+        if ( index === targets.length - 1 ) {
+          item.color = 2
+        }else {
+          item.color = 1
+        }
       })
-      console.log( balls )
+      return this
+    },
+    resetColorOfBalls () {
+      this.balls.forEach( item => item.color = 0 )
+      return this
     }
   },
 

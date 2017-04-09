@@ -38,14 +38,20 @@ export default {
     onClick () {
       if ( !this.isInit ) return
       console.log('on click')
+      this.pool.resetColorOfBalls()
       this.drawAry = this.draw( this.ballAry, 4)
       console.log(this.drawAry)
       this.pool.changeColorOfBalls( this.drawAry )
     },
     draw ( balls, n ) {
-      balls = balls.slice()
-      return Array( n ).fill( undefined ).map( () => {
-        return balls.splice( Math.floor( Math.random() * balls.length ), 1 )[0]
+      // balls = balls.slice()
+      // return Array( n ).fill( undefined ).map( () => {
+      //   return balls.splice( Math.floor( Math.random() * balls.length ), 1 )[0]
+      // })
+      // [ ...Array( this.$props.num ).keys() ].map( x => ++x ).sort( () => .5 - Math.random() )
+      let drawBox = [ ...Array( balls.length ).keys() ].sort( () => .5 - Math.random() )
+      return Array( n ).fill( undefined ).map( ( item, index ) => {
+        return balls[ drawBox[ index ] ]
       })
     }
   },  

@@ -90,7 +90,7 @@ export default {
       background-color: yellow;
     }
     &.lastDrawn {
-      color: color($colors, dark);
+      color: color($colors, light);
       background-color: red;
     }
 
