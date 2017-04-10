@@ -17,25 +17,21 @@ html, body {
   background-color: color($colors, primary);
 }
 
-#draw {
+#draw-section, #chart-section {
+  .container {
+    max-width: 800px;
+  }
+}
+
+#draw-section {
   padding: 0;
 
   & .row > div {
     padding: 16px;
-  }
-
-  .left-area {
-    // color: color($colors, light);
-    // background-color: color($colors, secondary);
-  }
-
-  .right-area {
-    // color: color($colors, light);
-    // background-color: color($colors, dark);
-  }  
+  } 
 }
 
-#chart {
+#chart-section {
   padding: 16px;
   color: color($colors, light);
   background-color: color($colors, secondary);

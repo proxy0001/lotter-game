@@ -1,9 +1,10 @@
 <template>
   <div class="number-panel">
-    <pool :num="num"></pool>
-    
-    <button v-show="isInit" v-on:click="onClick" type="button" class="btn btn-lg btn-danger btn-block">Draw</button>
-    
+    <pool :num="num"></pool>    
+    <button v-show="isInit" v-on:click="onClick" type="button" class="btn btn-lg btn-danger btn-block">
+      <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>
+      DRAW
+    </button>
   </div>
 </template>
 
@@ -45,7 +46,6 @@ export default {
     draw ( balls, n ) {
       let drawBox = [ ...Array( balls.length ).keys() ].sort( () => .5 - Math.random() )
       return Array( n ).fill( undefined ).map( ( item, index ) => {
-        // return Object.assign( {}, balls[ drawBox[ index ] ] )
         return balls[ drawBox[ index ] ]
       })
     }
@@ -57,8 +57,17 @@ export default {
   @import "../mixin.scss";
 
   .number-panel {
-    width: 80%;
+    width: 100%;
     padding: 24px;
     margin: 0 auto;
+
+    .pool {
+      width: 80%;
+    }
+
+    .btn > span {
+      margin-right: 12px;
+    }
   }
+
 </style>

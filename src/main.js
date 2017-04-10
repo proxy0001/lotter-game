@@ -8,8 +8,6 @@ import Ball from './components/ball'
 Vue.component('pool', Pool )
 Vue.component('ball', Ball )
 
-export const bus = new Vue()
-
 new Vue({
   el: '#app',
   render: h => h(App),

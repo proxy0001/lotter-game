@@ -58,14 +58,13 @@ export default {
 <style lang="scss">
   @import "../mixin.scss";
 
-
   .ball {
     position: relative;
-    width: 21%;
-    margin: 2%;
-    border-radius: 50%;
+    width: 19%;
+    margin: 3%;
+    overflow: hidden;    
+    border-radius: 50%; 
     background-color: color( $colors, secondary );
-    overflow: hidden;
     color: color($colors, light);
 
     .inner {
@@ -78,7 +77,6 @@ export default {
       justify-content: center;
       align-items: center;
     }
-
     &:after {
       content: '';
       display: block;
@@ -87,11 +85,11 @@ export default {
 
     &.drawn {
       color: color($colors, dark);
-      background-color: yellow;
+      background-color: color( $colors, primary );
     }
     &.lastDrawn {
       color: color($colors, light);
-      background-color: red;
+      background-color: color( $colors, danger );
     }
 
   }

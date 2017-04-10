@@ -1,11 +1,12 @@
 <template>
   <div class="history-panel">
-    <pool v-for=" n in displayNum" :num="cols"></pool>
-    <!--<div class="pool" v-for="buttle in buttles">
-      <div class="ball" v-for="ball in buttle">
-        <div class="inner">{{ball}}</div>
-      </div>
-    </div>-->
+    <div v-for=" n in displayNum" class="flex">
+      <div class="icon">
+        <span v-if="n === 1" class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
+        <span v-if="n !== 1" class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+      </div>  
+      <pool :num="cols"></pool>
+    </div>  
   </div>
 </template>
 
@@ -19,14 +20,6 @@ export default {
       pools: [],
       drawHistory: [],
       cols: 4,
-      buttles: [
-        [1, 2, 3, 4],
-        [1, 2, 3, 4],
-        [1, 2, 3, 4],
-        [1, 2, 3, 4],
-        [1, 2, 3, 4],
-      ],
-      balls: [1, 2, 3, 4],
     }
   },  
   created () {
@@ -75,8 +68,32 @@ export default {
   @import "../mixin.scss";
 
   .history-panel {
-    width: 70%;
+    width: 80%;
     padding: 24px;
     margin: 0 auto;
+
+    .flex {
+      display: flex;
+      width: 87%;
+      align-items: center;
+      margin: 0 0 12px auto;
+      .icon {
+        margin: 0 12px;
+        color: color($colors, secondary)
+      }
+      .pool {
+        margin: 0;
+      }      
+    }
+    .flex:first-child {
+      width: 100%;
+      .icon {
+        color: color($colors, danger);
+      }
+      .pool {
+        border-color: color($colors, danger);
+      }
+    }    
+
   }
 </style>

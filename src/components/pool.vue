@@ -110,7 +110,7 @@ export default {
     justify-content: flex-start;
     align-content: flex-start;
     align-items: flex-start;
-    width: 80%;
+    width: 100%;
     // min-height: 300px;
     margin: 0 auto;
     margin-bottom: 12px;

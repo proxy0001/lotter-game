@@ -5,43 +5,40 @@
       <p> {{description}} </p>
     </header>
     
-    <section id="draw" class="">
-      <div class="row">
-        <div class="col-md-6 left-area">
-          <number-panel></number-panel>
-          <!--<span>Number Panel</span>-->
-          
+    <section id="draw-section" class="container-fuild">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-6 left-area">
+            <number-panel></number-panel>
+            
+          </div>
+          <div class="col-sm-6 right-area">
+            <history-panel></history-panel>
+          </div>
         </div>
-        <div class="col-md-6 right-area">
-          <history-panel></history-panel>
-          <!--<span>History Panel</span>-->
-          
-        </div>
+      </div>
+    </section>
+    
+    <section id="chart-section" class="container-fuild">
+      <div class="container">
+        <h3>Chart Panel</h3>
+        <chart-panel></chart-panel>
       </div>  
-    </section>
-    <section id="chart">
-      <p>Chart Panel</p>
-    </section>
-
-       <!--<template v-for="variant in ['primary','secondary','success','outline-success','warning','danger','link']">
-        <div class="col-md-4 pb-2" v-for="size in ['sm','','lg']">
-          <b-button :size="size" :variant="variant" href="">
-            {{variant}} {{size}}
-          </b-button>
-        </div>
-      </template>-->   
+    </section> 
   </div>
 </template>
 
 <script>
 import NumberPanel from './components/number-panel'
 import HistoryPanel from './components/history-panel'
+import ChartPanel from './components/chart-panel'
 
 export default {
   name: 'app',
   components: {
     'number-panel': NumberPanel,
     'history-panel': HistoryPanel,
+    'chart-panel': ChartPanel,
   },
   data () {
     return {
