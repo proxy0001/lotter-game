@@ -12,70 +12,87 @@ $colors: (
 
 // change default bootstrap color
 
-.btn-primary {
-  background: color($colors, primary);
-  color: color($colors, light);
-  border-color: color($colors, primary);
-}
- 
-.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary {
-    background: color($colors, primary);
-    border-color: color($colors, primary);
-}
- 
-.btn-primary:active, .btn-primary.active {
-    background: color($colors, primary);
-    border-color: color($colors, primary);
+%float-styles {
+  float: left;
 }
 
-.btn-outline-primary {
-  color: color($colors, light);
-  border-color: color($colors, primary);
-}
- 
-.btn-outline-primary:hover, .btn-outline-primary:focus, .btn-outline-primary:active, .btn-outline-primary.active, .open > .dropdown-toggle.btn-outline-primary {
-  color: color($colors, light);
-  background: color($colors, primary);
-  border-color: color($colors, primary);
-}
- 
-.btn-outline-primary:active, .btn-outline-primary.active {
-  color: color($colors, light);
-  background: color($colors, primary);
-  border-color: color($colors, primary);
-  box-shadow: none;
+@mixin change-btn-style {
+  @each $name, $color in $colors {
+      // .col-#{$i}-m { @extend %float-styles; }
+    .btn-#{$name} {
+      background: $color;
+      color: color($colors, light);
+      border-color: $color;      
+    }
+
+    .btn-#{$name}:hover, .btn-#{$name}:focus, .btn-#{$name}:active, .btn-#{$name}.active, .open > .dropdown-toggle.btn-#{$name} {
+      background: darken( $color, 5% );
+      border-color: $color;
+      outline: none;
+    }
+
+    .btn-#{$name}:active, .btn-#{$name}.active,.btn-#{$name}:active:focus, .btn-#{$name}.active.focus {
+      background: darken( $color, 10% );
+      border-color: $color;
+      outline: none;
+    }
+
+    .btn-outline-#{$name} {
+      color: color($colors, light);
+      border-color: $color;
+    }
+    
+    .btn-outline-#{$name}:hover, .btn-outline-#{$name}:focus, .btn-outline-#{$name}:active, .btn-outline-#{$name}.active, .open > .dropdown-toggle.btn-outline-#{$name} {
+      color: color($colors, light);
+      background: $color;
+      border-color: $color;
+      box-shadow: none;
+    }
+    
+    .btn-outline-#{$name}:active, .btn-outline-#{$name}.active {
+      color: color($colors, light);
+      background: $color;
+      border-color: $color;
+      box-shadow: none;
+    }    
+  }
 }
 
-.btn-danger {
-  background: color($colors, danger);
-  color: color($colors, light);
-  border-color: color($colors, danger);
-}
- 
-.btn-danger:hover, .btn-danger:focus, .btn-danger:active, .btn-danger.active, .open > .dropdown-toggle.btn-danger {
-    background: color($colors, danger);
-    border-color: color($colors, danger);
-}
- 
-.btn-danger:active, .btn-danger.active {
-    background: color($colors, danger);
-    border-color: color($colors, danger);
-}
+@include change-btn-style;
 
-.btn-outline-danger {
-  color: color($colors, light);
-  border-color: color($colors, danger);
-}
+// .btn-danger {
+//   background: color($colors, danger);
+//   color: color($colors, light);
+//   border-color: color($colors, danger);
+// }
  
-.btn-outline-danger:hover, .btn-outline-danger:focus, .btn-outline-danger:active, .btn-outline-danger.active, .open > .dropdown-toggle.btn-outline-danger {
-  color: color($colors, light);
-  background: color($colors, danger);
-  border-color: color($colors, danger);
-}
+// .btn-danger:hover, .btn-danger:focus, .btn-danger:active, .btn-danger.active, .open > .dropdown-toggle.btn-danger {
+//   background: darken( color($colors, danger), 5% );
+//   border-color: color($colors, danger);
+//   outline: none;
+// }
  
-.btn-outline-danger:active, .btn-outline-danger.active {
-  color: color($colors, light);
-  background: color($colors, danger);
-  border-color: color($colors, danger);
-  box-shadow: none;
-}
+// .btn-danger:active, .btn-danger.active,.btn-danger:active:focus, .btn-danger.active.focus {
+//   background: darken( color($colors, danger), 10% );
+//   border-color: color($colors, danger);
+//   outline: none;
+// }
+
+// .btn-outline-danger {
+//   color: color($colors, light);
+//   border-color: color($colors, danger);
+// }
+ 
+// .btn-outline-danger:hover, .btn-outline-danger:focus, .btn-outline-danger:active, .btn-outline-danger.active, .open > .dropdown-toggle.btn-outline-danger {
+//   color: color($colors, light);
+//   background: color($colors, danger);
+//   border-color: color($colors, danger);
+//   box-shadow: none;
+// }
+ 
+// .btn-outline-danger:active, .btn-outline-danger.active {
+//   color: color($colors, light);
+//   background: color($colors, danger);
+//   border-color: color($colors, danger);
+//   box-shadow: none;
+// }
