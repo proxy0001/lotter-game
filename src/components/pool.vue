@@ -53,18 +53,18 @@ export default {
       this.$el.style.height = height + 'px'
       return this
     },
-    createBalls ( n = 0 ) {
-      if ( isNaN( n ) ) {
-        this.balls = n
-      }else {
-        this.balls = Array( n ).fill( undefined ).map( ( value, index ) => {
-          return {
-            value: index + 1,
-            color: 0,
-            isShow: false,
-          }
-        }).sort( () => .5 - Math.random() )
-      }
+    setBalls ( balls ) {
+      this.balls = balls
+      return this
+    },
+    createBalls ( values ) {
+      this.balls = values.map( value => {
+        return {
+          value: value,
+          color: 0,
+          isShow: false,
+        }
+      })
       return this
     },
     showBalls ( n = 0 ) {

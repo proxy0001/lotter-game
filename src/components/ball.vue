@@ -9,7 +9,7 @@ export default {
   name: 'ball',
   props: {
     value: {
-      type: Number,
+      type: Number | String,
     },
     isShow: {
       type: Boolean,
@@ -25,13 +25,13 @@ export default {
     },
   },
   created () {
-    console.log( this.$options.name + ': created' );
+    // console.log( this.$options.name + ': created' );
   },
   mounted () {
-    console.log( this.$options.name + ': mounted');
+    // console.log( this.$options.name + ': mounted');
   },  
   destoryed () {
-    console.log( this.$options.name + ': destoryed');
+    // console.log( this.$options.name + ': destoryed');
   },
   methods: {
     show () {

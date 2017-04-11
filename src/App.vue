@@ -9,7 +9,7 @@
       <div class="container">
         <div class="row">
           <div class="col-sm-6 left-area">
-            <number-panel></number-panel>
+            <number-panel :num="num" :drawNum="drawNum" :values="values" ></number-panel>
             
           </div>
           <div class="col-sm-6 right-area">
@@ -22,7 +22,7 @@
     <section id="chart-section" class="container-fuild">
       <div class="container">
         <h3>Chart Panel</h3>
-        <chart-panel></chart-panel>
+        <chart-panel :values="values"></chart-panel>
       </div>  
     </section> 
   </div>
@@ -32,6 +32,7 @@
 import NumberPanel from './components/number-panel'
 import HistoryPanel from './components/history-panel'
 import ChartPanel from './components/chart-panel'
+// import { Bus } from './event-bus'
 
 export default {
   name: 'app',
@@ -40,11 +41,21 @@ export default {
     'history-panel': HistoryPanel,
     'chart-panel': ChartPanel,
   },
+  computed: {
+    values() {
+      return [ ...Array( this.num ).keys() ].map( x => ++x )
+    },
+  },
   data () {
     return {
       title: 'Lotter game',
       description: 'vue + bootstrap',
+      num: 16,
+      drawNum: 4,
     }
+  },
+  created () {
+    
   }
 }
 </script>

@@ -28,10 +28,10 @@ export default {
   mounted () {
     this.pools = this.$children
     Bus.$on( 'addDrawnData', ( data ) => {
-      console.log( data )
+      // console.log( data )
       this.addHistoryData( data )
       this.loopPools( ( pool, data, index ) => {
-        pool.createBalls( data )
+        pool.setBalls( data )
         if ( index !== 0 ) {
           pool.resetColorOfBalls()
         }

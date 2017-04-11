@@ -12,10 +12,24 @@
 import { Bus } from './event-bus'
 
 export default {
+  props: {
+    num: {
+      type: Number,
+      default: 16,
+    },
+    drawNum: {
+      type: Number,
+      default: 4,
+    },
+    values: {
+      type: Array,
+      default: () => [ 'default' ]
+    },    
+  },
   data () {
     return {
-      num: 16,
-      drawNum: 4,
+      // num: 16,
+      // drawNum: 4,
       drawAry: [],
       ballAry: [],
       pool: undefined,
@@ -23,28 +37,36 @@ export default {
     }
   },  
   created () {
-
+    
   },
   mounted () {
+    
     this.pool = this.$children[0]
-    this.pool.createBalls( this.num ).showBalls().then( () => {
+    this.pool.createBalls( this.randomValues ).showBalls().then( () => {
       this.isInit = true
       this.ballAry = this.pool.balls
-      console.log(this.ballAry)
     })
   },
-
+  computed: {
+    randomValues() {
+      return this.values.slice().sort( () => .5 - Math.random() )
+    }
+  },
   methods: {
     onClick () {
       if ( !this.isInit ) return
       console.log('on click')
       this.pool.resetColorOfBalls()
+      // console.log( this.ballAry )
       this.drawAry = this.draw( this.ballAry, 4)
       this.pool.changeColorOfBalls( this.drawAry )
       Bus.$emit( 'addDrawnData', this.drawAry.map( x => Object.assign( {}, x ) ) )
     },
     draw ( balls, n ) {
       let drawBox = [ ...Array( balls.length ).keys() ].sort( () => .5 - Math.random() )
+      if (  n > balls.length ){
+        n = balls.length
+      }
       return Array( n ).fill( undefined ).map( ( item, index ) => {
         return balls[ drawBox[ index ] ]
       })
