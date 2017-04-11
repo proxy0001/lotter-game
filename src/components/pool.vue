@@ -88,7 +88,33 @@ export default {
     resetColorOfBalls () {
       this.balls.forEach( item => item.color = 0 )
       return this
-    }
+    },    
+    wiggleColorOfBalls () {
+      this.balls.forEach( item => item.color = ( Math.random() * 100 | 0 ) % 3 )
+      return this
+    },
+    wiggleValueOfBalls () {
+      this.balls.forEach( item => item.value = ( Math.random() * 100 | 0 ) % 16 + 1 )
+      return this
+    },    
+    wigglePositionOfBalls () {
+      this.$children.forEach( item => {
+        let x = ( Math.random() * 100 | 0 ) % 10 - 5
+        let y = ( Math.random() * 100 | 0 ) % 10 - 5
+        item.$el.style.transform = `translate( ${x}px, ${y}px )`
+      })
+      return this
+    },
+    saveBalls () {
+      this._balls = this.balls.map( x => Object.assign( {}, x ) )
+    },
+    resetBalls () {
+      this.balls = this._balls.map( x => Object.assign( {}, x ) )
+      this.$children.forEach( item => {
+        item.$el.style.transform = `translate( 0px, 0px )`
+      })
+      return this
+    },
   },
 
 }
