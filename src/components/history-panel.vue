@@ -79,7 +79,7 @@ export default {
       margin: 0 0 12px auto;
       .icon {
         margin: 0 12px;
-        color: color($colors, secondary)
+        color: rgba( color($colors, secondary), .54 );
       }
       .pool {
         margin: 0;
@@ -91,7 +91,7 @@ export default {
         color: color($colors, danger);
       }
       .pool {
-        border-color: color($colors, danger);
+        // border-color: color($colors, danger);
       }
     }    
 

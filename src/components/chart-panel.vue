@@ -32,88 +32,56 @@ export default {
     console.log(data)
 
     let svg = d3.select( '#svg' )
-    let margin = { top: 20, right: 30, bottom: 30, left: 40 }
+    let margin = { top: 30, right: 30, bottom: 30, left: 30 }
     let width = svg.attr( 'width' ) - margin.left - margin.right
     let height = svg.attr( 'height' ) - margin.top - margin.bottom
 
     let x = d3.scaleBand().rangeRound( [ 0, width ] ).padding( 0.1 )
     let y = d3.scaleLinear().rangeRound( [ height, 0 ] )
 
+    let xAxis = d3.axisBottom( x )
+    // let yAxis = d3.axisLeft( y ).ticks( 10, '%' )
+    let yAxis = d3.axisLeft( y )
+
     let g = svg.append( 'g' )
       .attr( 'transform', 'translate(' + margin.left + ',' + margin.top + ')' )
-
-    let xAxis = d3.axisBottom( x )
-    let yAxis = d3.axisLeft( y ).ticks( 10, '%' )
 
     x.domain( data.map( d => d.name ) )
     y.domain( [ 0, d3.max( data, d => d.value ) ] )
 
-    svg.append( 'g' )
+    g.append( 'g' )
       .attr( 'class', 'axis axis--x' )
       .attr( 'transform', 'translate(0,' + height + ')' )
       .call( xAxis )
 
-    svg.append( 'g' )
+    g.append( 'g' )
       .attr( 'class', 'axis axis--y' )
       .call( yAxis )
-      // .append("text")
-      // .attr("transform", "rotate(-90)")
-      // .attr("y", 6)
-      // .attr("dy", "0.71em")
-      // .attr("text-anchor", "end")
-      // .text("Frequency");
 
+    // g.append( 'text' )
+    //   .attr( 'transform', 'rotate(-90)' )
+    //   .attr( 'y', 6 )
+    //   .attr( 'dy', '0.7em' )
+    //   .attr( 'text-anchor', 'end' )
+    //   .text( 'value' )
 
-    console.log( x )
-    svg.selectAll( '.bar' )
+    let bars = g.selectAll( '.bar' )
       .data( data )
-      .enter().append( 'rect' )
+      .enter().append( 'g' )
       .attr( 'class', 'bar' )
-      .attr( 'x', d => d.name )
-      .attr( 'y', d => d.value )
+      .attr( 'x', d => x( d.name ) )
+      .attr( 'y', d => y( d.value ) )      
+      .attr( 'transform', ( d, i ) => 'translate(' + x( d.name ) + ',' + y( d.value ) + ')' )
+    
+    bars.append( 'rect' )
       .attr( 'height', d => height - y( d.value ) )
       .attr( 'width', x.bandwidth() )
 
-    // let barWidth = width / data.length
-    // let bar = chart.selectAll( 'g' )
-    //   .data( data )
-    //   .enter().append( 'g' )
-    //   .attr( 'transform', ( d, i ) => 'translate(' + i * barWidth + ',0)' )
-
-    // bar.append( 'rect' )
-    //   .attr( 'y', d => y( d.value ) )
-    //   .attr( 'height', d => height - y( d.value ) )
-    //   .attr( 'width', barWidth - 1 )
-
-    // bar.append( 'text' )
-    //   .attr( 'x', barWidth / 2 )
-    //   .attr( 'y', d => y( d.value ) + 3 )
-    //   .attr( 'dy', '.75em' )
-    //   .text( d => d.value )
-
-    // let barHeight = 20
-    // console.log(d3)
-    // let x = d3.scaleLinear().range([0, width])
-    // x.domain([0,d3.max(data, d => d.value)])
-    // console.log(x)
-    // let chart = d3.select('#chart')
-    //   .attr('width', width)
-    //   .attr('height', barHeight * data.length)
-    // let bar = chart.selectAll("g")
-    //   .data(data).enter().append("g")
-    //   .attr("transform", (d, i) => "translate(0," + i * barHeight + ")" )
-      
-    // bar.append("rect")
-    //   .attr("width", d => x(d.value))
-    //   .attr("height", barHeight - 1)
-
-    // bar.append("text")
-    //   .attr("x", d => x(d.value) - 3 )
-    //   .attr("y", barHeight / 2)
-    //   .attr("dy", ".35em")
-    //   .text( d => d.value )
-
-
+    bars.append( 'text' )
+      .attr( 'width', x.bandwidth() )
+      .attr( 'x', x.bandwidth() / 2 )
+      .attr( 'dy', '1.2em' )
+      .text( d => d.value )
     
   },
   destroyed () {
@@ -129,14 +97,29 @@ export default {
   @import "../mixin.scss";
 
   .chart-panel{
-    .chart rect {
-      fill: steelblue;
+    .bar rect {
+      fill: rgba( color($colors, light), .68 );
     }
 
-    .chart text {
-      fill: white;
+    .bar text {
+      fill: rgba( color($colors, dark), .9 );
       font: 10px sans-serif;
       text-anchor: middle;
+    }
+
+    .bar:hover rect {
+      fill: rgba( color($colors, danger), .9 );
+    }
+    .bar:hover text {
+      fill: rgba( color($colors, light), .9 );
+    }
+    
+    .axis path, .axis line {
+      // display: none;
+      stroke: rgba( color($colors, dark), .68 );
+    }
+    .axis text {
+      fill: rgba( color($colors, dark), .68 );
     }
   }
 </style>

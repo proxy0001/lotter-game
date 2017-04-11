@@ -64,7 +64,7 @@ export default {
     margin: 3%;
     overflow: hidden;    
     border-radius: 50%; 
-    background-color: color( $colors, secondary );
+    background-color: rgba( color($colors, secondary), .68 );
     color: color($colors, light);
 
     .inner {
@@ -84,7 +84,7 @@ export default {
     }
 
     &.drawn {
-      color: color($colors, dark);
+      color: color($colors, light);
       background-color: color( $colors, primary );
     }
     &.lastDrawn {

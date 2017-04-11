@@ -20,6 +20,7 @@ html, body {
 #draw-section, #chart-section {
   .container {
     max-width: 800px;
+    padding: 24px 0;
   }
 }
 
@@ -34,5 +35,5 @@ html, body {
 #chart-section {
   padding: 16px;
   color: color($colors, light);
-  background-color: color($colors, secondary);
+  background-color: rgba( color($colors, primary), .68 );
 }

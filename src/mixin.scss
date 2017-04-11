@@ -45,3 +45,37 @@ $colors: (
   border-color: color($colors, primary);
   box-shadow: none;
 }
+
+.btn-danger {
+  background: color($colors, danger);
+  color: color($colors, light);
+  border-color: color($colors, danger);
+}
+ 
+.btn-danger:hover, .btn-danger:focus, .btn-danger:active, .btn-danger.active, .open > .dropdown-toggle.btn-danger {
+    background: color($colors, danger);
+    border-color: color($colors, danger);
+}
+ 
+.btn-danger:active, .btn-danger.active {
+    background: color($colors, danger);
+    border-color: color($colors, danger);
+}
+
+.btn-outline-danger {
+  color: color($colors, light);
+  border-color: color($colors, danger);
+}
+ 
+.btn-outline-danger:hover, .btn-outline-danger:focus, .btn-outline-danger:active, .btn-outline-danger.active, .open > .dropdown-toggle.btn-outline-danger {
+  color: color($colors, light);
+  background: color($colors, danger);
+  border-color: color($colors, danger);
+}
+ 
+.btn-outline-danger:active, .btn-outline-danger.active {
+  color: color($colors, light);
+  background: color($colors, danger);
+  border-color: color($colors, danger);
+  box-shadow: none;
+}

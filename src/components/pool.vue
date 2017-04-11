@@ -111,17 +111,9 @@ export default {
     align-content: flex-start;
     align-items: flex-start;
     width: 100%;
-    // min-height: 300px;
     margin: 0 auto;
     margin-bottom: 12px;
-    border: 1px solid color( $colors, secondary );
-
+    border: 1px solid rgba( color($colors, secondary), .68 );
   }
 
-  // .fade-enter-active, .fade-leave-active {
-  //   transition: opacity .5s
-  // }
-  // .fade-enter, .fade-leave-to /* .fade-leave-active in <2.1.8 */ {
-  //   opacity: 0
-  // }
 </style>
