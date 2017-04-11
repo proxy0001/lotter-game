@@ -28,7 +28,6 @@ export default {
   mounted () {
     this.pools = this.$children
     Bus.$on( 'addDrawnData', ( data ) => {
-      // console.log( data )
       this.addHistoryData( data )
       this.loopPools( ( pool, data, index ) => {
         pool.setBalls( data )
@@ -37,9 +36,6 @@ export default {
         }
       })
     })
-  },
-  destroyed () {
-
   },
   methods: {
     addHistoryData ( data ) {

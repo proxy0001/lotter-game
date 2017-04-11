@@ -29,18 +29,11 @@ export default {
       balls: []
     }
   },  
-  created () {
-    console.log( this.$options.name + ': created' )
-
-  },
   mounted () {
-    console.log( this.$options.name + ': mounted')
     this.setHeight()
-    // this.showBalls()
     window.addEventListener('resize', this.setHeight)
   },  
   destoryed () {
-    console.log( this.$options.name + ': destoryed')
     window.removeEventListener('resize')
   },
 

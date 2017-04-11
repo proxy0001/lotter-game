@@ -28,8 +28,6 @@ export default {
   },
   data () {
     return {
-      // num: 16,
-      // drawNum: 4,
       drawAry: [],
       ballAry: [],
       pool: undefined,
@@ -40,7 +38,6 @@ export default {
     
   },
   mounted () {
-    
     this.pool = this.$children[0]
     this.pool.createBalls( this.randomValues ).showBalls().then( () => {
       this.isInit = true
@@ -55,9 +52,8 @@ export default {
   methods: {
     onClick () {
       if ( !this.isInit ) return
-      console.log('on click')
+      // console.log('on click')
       this.pool.resetColorOfBalls()
-      // console.log( this.ballAry )
       this.drawAry = this.draw( this.ballAry, 4)
       this.pool.changeColorOfBalls( this.drawAry )
       Bus.$emit( 'addDrawnData', this.drawAry.map( x => Object.assign( {}, x ) ) )

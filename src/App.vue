@@ -32,7 +32,6 @@
 import NumberPanel from './components/number-panel'
 import HistoryPanel from './components/history-panel'
 import ChartPanel from './components/chart-panel'
-// import { Bus } from './event-bus'
 
 export default {
   name: 'app',

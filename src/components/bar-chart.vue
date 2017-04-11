@@ -22,22 +22,13 @@ export default {
 
     }
   },
-  computed: {
-
-  },  
-  created () {
-    
-  },
   mounted () {
     this.initChart( this.data )
-  },
-  destroyed () {
-
   },
   watch: {
     data: {
       handler( data ) {
-        console.log( 'data watch' )
+        // console.log( 'data watch' )
         this.data = data
         this.updateChart( this.data )
       },
@@ -47,8 +38,6 @@ export default {
   methods: {
     initChart ( data ) {
       this.svg = d3.select( 'svg.bar-chart' )
-        // .attr( 'width', this.width ).attr( 'height', this.height )
-        console.log(  )
       this.margin = { top: 20, right: 20, bottom: 30, left: 40 }
       this.innerWidth = this.svg.node().clientWidth - this.margin.left - this.margin.right
       this.innerHeight = this.svg.node().clientHeight - this.margin.top - this.margin.bottom
@@ -129,7 +118,6 @@ export default {
     font: 10px sans-serif;
     text-anchor: middle;
   }
-
   .bar:hover rect {
     fill: rgba( color($colors, danger), .9 );
   }

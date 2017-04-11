@@ -20,25 +20,13 @@ export default {
   },
   data () {
     return {
-      test: { name: 'default', value: 0 },
-      testData: [{ name: 'default', value: 0 }],
       barChartData: this.values.map( ( value, index ) => { return { name: value, value: 0 } } )
     }
   },
-  computed: {
-
-  },  
-  created () {
-  
-  },
   mounted () {
-
     Bus.$on( 'addDrawnData', ( data ) => {
       this.addCounts( data )
     })
-  },
-  destroyed () {
-
   },
   methods: {
     addCounts( drawnData ) {
