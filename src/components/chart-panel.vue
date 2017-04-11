@@ -1,7 +1,9 @@
 <template>
   <div class="chart-panel container">
     <!--<svg class="chart" width="600" height="300"></svg>-->
-    <bar-chart :width="600" :height="300" :data="barChartData"></bar-chart>
+    <div>
+      <bar-chart :data="barChartData"></bar-chart>
+    </div>  
   </div>
 </template>
 
@@ -56,7 +58,9 @@ export default {
 <style lang="scss">
   @import "../mixin.scss";
 
-  .chart-panel{
-
+  .chart-panel > div{
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
   }
 </style>

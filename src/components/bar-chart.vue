@@ -1,5 +1,5 @@
 <template>
-    <svg class="bar-chart"></svg>
+    <svg class="bar-chart" width="100%" height="100%"  viewBox="0 0 600 337"  preserveAspectRatio="none"></svg>
 </template>
 
 <script>
@@ -8,14 +8,6 @@ import * as d3 from "d3"
 
 export default {
   props: {
-    width: {
-      type: Number,
-      default: 600
-    },
-    height: {
-      type: Number,
-      default: 300
-    },
     data: {
       type: Array,
       default() {
@@ -34,18 +26,10 @@ export default {
 
   },  
   created () {
-
+    
   },
   mounted () {
-    this.svg = d3.select( 'svg.bar-chart' ).attr( 'width', this.width ).attr( 'height', this.height )
-    this.margin = { top: 30, right: 30, bottom: 30, left: 30 }
-    this.innerWidth = this.svg.attr( 'width' ) - this.margin.left - this.margin.right
-    this.innerHeight = this.svg.attr( 'height' ) - this.margin.top - this.margin.bottom
-    this.g = this.svg.append( 'g' )
-      .attr( 'transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')' )
-    
-    this.createChart( this.data )
-    console.log( this.data )
+    this.initChart( this.data )
   },
   destroyed () {
 
@@ -61,78 +45,24 @@ export default {
     }
   },
   methods: {
-    updateChart ( data ) {
+    initChart ( data ) {
+      this.svg = d3.select( 'svg.bar-chart' )
+        // .attr( 'width', this.width ).attr( 'height', this.height )
+        console.log(  )
+      this.margin = { top: 20, right: 20, bottom: 30, left: 40 }
+      this.innerWidth = this.svg.node().clientWidth - this.margin.left - this.margin.right
+      this.innerHeight = this.svg.node().clientHeight - this.margin.top - this.margin.bottom
+      this.g = this.svg.append( 'g' )
+        .attr( 'transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')' )
+      
       let x = d3.scaleBand().rangeRound( [ 0, this.innerWidth ] ).padding( 0.1 )
       let y = d3.scaleLinear().rangeRound( [ this.innerHeight, 0 ] )
 
       x.domain( data.map( d => d.name ) )
-      y.domain( [ 0, d3.max( data, d => d.value ) ] ) 
+      y.domain( [ 0, d3.max( data, d => ( d.value < 5 ) ? 5 : d.value  ) ] ) 
 
       let xAxis = d3.axisBottom( x )
-      let yAxis = d3.axisLeft( y )      
-
-     
-      this.g.select( 'axis--x' )
-        .transition().duration( 500 )
-        // .attr( 'transform', 'translate(0,' + this.innerHeight + ')' )
-        .call( xAxis )
-
-      this.g.select( 'axis--y' )
-        .transition().duration( 500 )
-        .call( yAxis )
-
-      // g.append( 'text' )
-      //   .attr( 'transform', 'rotate(-90)' )
-      //   .attr( 'y', 6 )
-      //   .attr( 'dy', '0.7em' )
-      //   .attr( 'text-anchor', 'end' )
-      //   .text( 'value' )
-      console.log( this.g )
-      let bars = this.g.selectAll( '.bar' )
-        .transition().duration( 500 )
-        // .attr( 'x', d => x( d.name ) )
-        .attr( 'y', d => y( d.value ) )      
-        .attr( 'transform', ( d, i ) => 'translate(' + x( d.name ) + ',' + y( d.value ) + ')' )
-        
-      bars.selectAll( 'rect' )
-        .transition().duration(500)
-        .attr( 'height', d => this.innerHeight - y( d.value ) )
-        .attr( 'width', x.bandwidth() )
-
-      bars.selectAll( 'text' )
-        .attr( 'width', x.bandwidth() )
-        .attr( 'x', x.bandwidth() / 2 )
-        .attr( 'dy', d => ( d.value > 0 ) ? '1.2em' : '-.7em' )
-        .text( d => d.value )
-
-
-
-      // bars.exit().transition().duration(500)
-      //   .selectAll("rect")
-      //   .attr("height", 0)
-      //   .remove();        
-    },
-    createChart ( data ) {
-
-      // let svg = d3.select( 'svg.bar-chart' ).attr( 'width', this.width ).attr( 'height', this.height )
-      // let margin = { top: 30, right: 30, bottom: 30, left: 30 }
-      // let width = svg.attr( 'width' ) - margin.left - margin.right
-      // let height = svg.attr( 'height' ) - margin.top - margin.bottom
-
-      let x = d3.scaleBand().rangeRound( [ 0, this.innerWidth ] ).padding( 0.1 )
-      let y = d3.scaleLinear().rangeRound( [ this.innerHeight, 0 ] )
-
-      x.domain( data.map( d => d.name ) )
-      y.domain( [ 0, d3.max( data, d => d.value ) ] )
-
-      let xAxis = d3.axisBottom( x )
-      // let yAxis = d3.axisLeft( y ).ticks( 10, '%' )
       let yAxis = d3.axisLeft( y )
-
-      // let g = svg.append( 'g' )
-      //   .attr( 'transform', 'translate(' + margin.left + ',' + margin.top + ')' )
-
-
 
       this.g.append( 'g' )
         .attr( 'class', 'axis axis--x' )
@@ -143,39 +73,46 @@ export default {
         .attr( 'class', 'axis axis--y' )
         .call( yAxis )
 
-      // g.append( 'text' )
-      //   .attr( 'transform', 'rotate(-90)' )
-      //   .attr( 'y', 6 )
-      //   .attr( 'dy', '0.7em' )
-      //   .attr( 'text-anchor', 'end' )
-      //   .text( 'value' )
-
       let bars = this.g.selectAll( '.bar' )
         .data( data )
         .enter().append( 'g' )
         .attr( 'class', 'bar' )
         .attr( 'x', d => x( d.name ) )
         .attr( 'y', d => y( d.value ) )      
-        .attr( 'transform', ( d, i ) => 'translate(' + x( d.name ) + ',' + y( d.value ) + ')' )
+        .attr( 'transform', ( d, i ) => 'matrix(1,0,0,-1,' + x( d.name ) + ',' + this.innerHeight + ')' )
         
       bars.append( 'rect' )
-        .transition().duration(500)
-        .attr( 'height', d => this.innerHeight - y( d.value ) )
         .attr( 'width', x.bandwidth() )
 
       bars.append( 'text' )
+        .attr( 'transform', d => 'matrix(1, 0, 0, -1, 0, ' + ( this.innerHeight - y( d.value ) ) + ')' )
         .attr( 'width', x.bandwidth() )
         .attr( 'x', x.bandwidth() / 2 )
+    },
+    updateChart ( data ) {
+      let x = d3.scaleBand().rangeRound( [ 0, this.innerWidth ] ).padding( 0.1 )
+      let y = d3.scaleLinear().rangeRound( [ this.innerHeight, 0 ] )
+
+      x.domain( data.map( d => d.name ) )
+      y.domain( [ 0, d3.max( data, d => ( d.value < 5 ) ? 5 : d.value  ) ] ) 
+
+      let xAxis = d3.axisBottom( x )
+      let yAxis = d3.axisLeft( y )      
+
+      let duration = this.g.transition().duration( 500 )
+      
+      duration.select( '.axis--x' ).call( xAxis )
+      duration.select( '.axis--y' ).call( yAxis )
+
+      duration.selectAll( '.bar rect' )
+        .attr( 'height', d => this.innerHeight - y( d.value ) )
+
+      duration.selectAll( '.bar text' )
+        .attr( 'transform', d => 'matrix(1, 0, 0, -1, 0, ' + ( this.innerHeight - y( d.value ) ) + ')' )
         .attr( 'dy', d => ( d.value > 0 ) ? '1.2em' : '-.7em' )
         .text( d => d.value )
-
-
-
-      // bars.exit().transition().duration(500)
-      //   .selectAll("rect")
-      //   .attr("height", 0)
-      //   .remove();  
-    }
+        .attr( 'display', d => ( d.value > 0 ) ? 'initial' : 'none' )
+    },
   },
 }
 </script>
