@@ -65,5 +65,5 @@
 </script>
 
 <style lang="scss">
-  @import "./app.scss";
+  @import "./App.scss";
 </style>
